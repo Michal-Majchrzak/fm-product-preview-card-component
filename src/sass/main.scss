@@ -3,6 +3,8 @@
 // css-reset
 @include st.reset-add;
 
+@include st.access-sr-only-class;
+
 // Typography
 @mixin overline {
     font-family: "Montserrat", sans-serif;
@@ -43,10 +45,13 @@
     --color-gunmetal: hsl(212, 21%, 14%);
 }
 
+
+
 body {
     background-color: var(--color-cream-bg);
     @include st.layout-flex(column);
     align-items: center;
+    justify-content: center;
     padding: st.px2rem(28) st.px2rem(16);
     min-height: 100dvh;
 }
@@ -54,6 +59,7 @@ body {
 .card {
     background-color: var(--color-pure-white);
     border-radius: st.px2rem(10);
+    @include st.layout-flex(column);
     max-width: st.px2rem(416);
 
     .header-image{
@@ -62,15 +68,15 @@ body {
 
     .card-body {
         @include st.layout-flex(column);
-        padding: st.px2rem(24);
+        padding: st.linear-func-clamp(24, 375, 32, 648);
     }
 
     .price-box {
         @include st.layout-flex(row);
         align-items: center;
         gap: st.px2rem(19);
-        padding-top: st.px2rem(24);
-        padding-bottom: st.px2rem(20);
+        padding-top: st.linear-func-clamp(24, 375, 29, 648);
+        padding-bottom: st.linear-func-clamp(20, 375, 30, 648);
     }
 
     .category-tag {
@@ -79,13 +85,13 @@ body {
     }
 
     .title {
-        padding-top: st.px2rem(12);
+        padding-top: st.linear-func-clamp(12, 375, 20, 648);
         @include display;
         color: var(--color-gunmetal);
     }
 
     p {
-        padding-top: st.px2rem(16);
+        padding-top: st.linear-func-clamp(16, 375, 24, 648);
         @include body;
     }
 
@@ -108,7 +114,8 @@ body {
     justify-content: center;
     align-items: center;
     gap: st.px2rem(12);
-    padding: st.px2rem(15) st.px2rem(90);
+    padding-top: st.px2rem(15);
+    padding-bottom: st.px2rem(15);
     width: 100%;
     @include button-text;
 
@@ -118,3 +125,22 @@ body {
     }
 }
 
+@media (min-width: st.px2rem(648)) {
+    body {
+        padding: st.px2rem(171) st.px2rem(16);
+    }
+
+    .card {
+        flex-direction: row;
+        max-width: st.px2rem(600);
+
+        .header-image{
+        border-top-right-radius: unset;
+        border-bottom-left-radius: inherit;
+        }
+
+        .card-body {
+            max-width: 50%;
+        }
+    }
+}
