@@ -3,6 +3,7 @@
 // css-reset
 @include st.reset-add;
 
+// hide text intended only for screen readers
 @include st.access-sr-only-class;
 
 // Typography
@@ -36,6 +37,7 @@
     color: var(--color-pure-white);
 }
 
+// Styles
 :root {
     --color-pure-white: hsl(0, 0%, 100%);
     --color-cream-bg: hsl(28, 38%, 92%);
@@ -45,10 +47,10 @@
     --color-gunmetal: hsl(212, 21%, 14%);
 }
 
-
-
 body {
+    // Fill
     background-color: var(--color-cream-bg);
+    // Layout
     @include st.layout-flex(column);
     align-items: center;
     justify-content: center;
@@ -57,21 +59,27 @@ body {
 }
 
 .card {
+    // Fill
     background-color: var(--color-pure-white);
+    // Appearance
     border-radius: st.px2rem(10);
+    // Layout
     @include st.layout-flex(column);
     max-width: st.px2rem(416);
 
     .header-image{
+        // Appearance
         @include st.ap-border-radius-top(inherit);
     }
 
     .card-body {
+        // Layout
         @include st.layout-flex(column);
         padding: st.linear-func-clamp(24, 375, 32, 648);
     }
 
     .price-box {
+        // Layout
         @include st.layout-flex(row);
         align-items: center;
         gap: st.px2rem(19);
@@ -98,6 +106,9 @@ body {
     .price-tag {
         @include display;
         color: var(--color-deep-aquamarine);
+        //Animation
+        // Keyframes duration | easing func | delay | iteration-count | fill-mode | play-state | keyframes-name
+        animation: 4s linear 1s infinite none running grow;
     }
 
     .old-price-tag {
@@ -118,13 +129,48 @@ body {
     padding-bottom: st.px2rem(15);
     width: 100%;
     @include button-text;
+    //Transition
+    position: relative;
+    z-index: 1;
 
     &:hover {
-        background-color: var(--color-deep-aquamarine-hover);
         cursor: pointer;
+    }
+
+    &::after {
+        content: "";
+        z-index: -1;
+        background-color: var(--color-deep-aquamarine-hover);
+        border-radius: inherit;
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: scaleX(0);
+        opacity: 0.1;
+        transition: all 350ms;
+    }
+
+    &:hover::after {
+        transform: scaleX(1);
+        opacity: 1;
     }
 }
 
+// Animations
+@keyframes grow {
+    0%,
+    75% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.125);
+    }
+}
+
+// Queries
 @media (min-width: st.px2rem(648)) {
     body {
         padding: st.px2rem(171) st.px2rem(16);

@@ -110,6 +110,7 @@ body {
   font-weight: 700;
   line-height: 1em;
   color: var(--color-deep-aquamarine);
+  animation: 4s linear 1s infinite none running grow;
 }
 .card .old-price-tag {
   font-family: "Montserrat", sans-serif;
@@ -136,12 +137,40 @@ body {
   font-size: 0.875rem;
   font-weight: 700;
   color: var(--color-pure-white);
+  position: relative;
+  z-index: 1;
 }
 .btn-base:hover {
-  background-color: var(--color-deep-aquamarine-hover);
   cursor: pointer;
 }
+.btn-base::after {
+  content: "";
+  z-index: -1;
+  background-color: var(--color-deep-aquamarine-hover);
+  border-radius: inherit;
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scaleX(0);
+  opacity: 0.1;
+  transition: all 350ms;
+}
+.btn-base:hover::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
 
+@keyframes grow {
+  0%, 75% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.125);
+  }
+}
 @media (min-width: 40.5rem) {
   body {
     padding: 10.6875rem 1rem;
